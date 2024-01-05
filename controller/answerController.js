@@ -25,7 +25,7 @@ async function getanswer(req, res) {
 	const questionid = req.query.questionid;
 
 	try {
-		const readAllAnswers = `SELECT answers.*,users.username FROM answers LEFT JOIN users ON answers.userid = users.userid where answers.questionid=? `;
+		const readAllAnswers = `SELECT answers.*,Users.username FROM answers LEFT JOIN Users ON answers.userid = Users.userid where answers.questionid=? `;
 
 		const [response] = await dbconnection.query(readAllAnswers, [questionid]);
 

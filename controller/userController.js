@@ -15,7 +15,7 @@ async function register(req, res) {
 
 	try {
 		const [user] = await dbconnection.query(
-			"SELECT username,userid from users where username=? or email=?",
+			"SELECT username,userid from Users where username=? or email=?",
 			[username, email]
 		);
 
@@ -34,7 +34,7 @@ async function register(req, res) {
 		const hashedpassword = await bcrypt.hash(password, salt);
 
 		await dbconnection.query(
-			"INSERT INTO users (username,firstname,lastname,email,password) VALUES (?,?,?,?,?)",
+			"INSERT INTO Users (username,firstname,lastname,email,password) VALUES (?,?,?,?,?)",
 			[username, firstname, lastname, email, hashedpassword]
 		);
 		return res.status(StatusCodes.CREATED).json({ msg: "user register" });
@@ -56,7 +56,7 @@ async function login(req, res) {
 
     try {
 
-        const [user] = await dbconnection.query("SELECT username,userid,password from users where email = ? ",[email])
+        const [user] = await dbconnection.query("SELECT username,userid,password from Users where email = ? ",[email])
 
         if(user.length==0){
             return res.status(StatusCodes.BAD_REQUEST).json({

@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const cors=require('cors')
+const cors = require("cors");
 const port = 7700;
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
@@ -15,13 +15,13 @@ const questionsRoutes = require("./routes/questionRoute");
 // authentication middleware file
 const authMiddleware = require("./middleware/authMiddleware");
 
-// answer route middlewaree 
-const answerRoutes = require("./routes/answerRoute")
+// answer route middlewaree
+const answerRoutes = require("./routes/answerRoute");
 
 // Apply rate limiting middleware
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // maximum of 100 requests per windowMs
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100, // maximum of 100 requests per windowMs
 });
 app.use(limiter);
 
@@ -29,7 +29,7 @@ app.use(limiter);
 app.use(helmet());
 
 // using cors middleware
-app.use(cors())
+app.use(cors());
 
 // json middleware to extract json data
 app.use(express.json());
@@ -40,11 +40,11 @@ app.use("/api/users", useRoutes);
 
 // questions routes middleware??
 
-app.use("/api/questions",authMiddleware, questionsRoutes);
+app.use("/api/questions", authMiddleware, questionsRoutes);
 
 // answers routes middleware??
 
-app.use("/api/answer",authMiddleware, answerRoutes);
+app.use("/api/answer", authMiddleware, answerRoutes);
 
 async function start() {
 	try {
